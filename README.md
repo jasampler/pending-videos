@@ -6,7 +6,7 @@ Utility for tracking videos stored in a directory and classifying them as pendin
 How to use the program
 ----------------------
 
-Unzip the files in a new directory and make in that directory a symbolic link named "incoming" linked to the directory where the videos are located.
+Unzip the files in a new directory and make in that directory a symbolic link named "incoming" linked to the directory where the videos are located (on Windows you need the command `mklink` with option `/j` to create a link that the program can use).
 
 To update the list of the videos (the index.html file), you must open a terminal, change to the directory with the scripts and run the main script: ./update-videos.sh (on Windows: update-videos.bat)
 
