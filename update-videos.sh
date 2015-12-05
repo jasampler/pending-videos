@@ -1,19 +1,18 @@
 #!/bin/sh
 
 # Show videos which did not exist in last execution:
-ls incoming |diff index-old.txt - |grep '^>'
+perl list-files.pl incoming |perl diff-sort.pl index-old.txt - |perl -ne "print if /^>/"
 
 # Add the links of those new videos to the index:
-ls incoming |diff index-old.txt - |grep '^>' \
-	|sed -e 's/^> //' |./create-links.pl incoming >>index.html
+perl list-files.pl incoming |perl diff-sort.pl index-old.txt - |perl -ne "print if s/^> //" |perl create-links.pl incoming >>index.html
 
 # Save names of all current videos for the next execution:
-cat index.html |./grep-links.sh |sort >index-old.txt
+perl -ne "print" index.html |perl -ne "if (/a href/) { s/^[-x] +//; s/<a[^>]*>//; s/<\/a>.*//; print; }" >index-old.txt
 
 # Save the names of all videos not marked:
-grep '^[^x-]' index.html |./grep-links.sh |sort >index-unmarked-old.txt
+perl -ne "print if /^[^-x]/" index.html |perl -ne "if (/a href/) { s/^[-x] +//; s/<a[^>]*>//; s/<\/a>.*//; print; }" >index-unmarked-old.txt
 
 # Show marked videos which can be deleted:
-ls incoming |diff - index-unmarked-old.txt |grep '^<'
+perl list-files.pl incoming |perl diff-sort.pl - index-unmarked-old.txt |perl -ne "print if /^</"
 
-# To show only deleted videos: ls incoming |diff index-old.txt - |grep '^<'
+# To show only deleted videos: perl list-files.pl incoming |perl diff-sort.pl index-old.txt - |perl -ne "print if /^</"
