@@ -3,6 +3,15 @@ pending-videos
 
 Command-line utility for tracking videos stored in one or more directories and classifying them as pending watch, pending deletion or already seen.
 
+Features
+--------
+
++ Automatic addition of the new videos found in the disk at the end of the list.
++ The videos marked in the list to be deleted are reported if they remain in disk.
++ The list saves the names of all videos watched before, also those removed from disk.
++ The videos in the list can be reorganized and categorized, HTML is supported.
++ The videos can be located in any directory, files not found are ignored.
+
 How to use the program
 ----------------------
 
@@ -12,7 +21,7 @@ To run the program you need *Perl 5* installed (in Linux and Mac it comes by def
 
     perl  update-videos.pl  pending-videos.html  IncomingVideos
 
-And the `update-videos.pl` program will write to that text file the names of the videos found in that directory, marked as *pending watch* with the symbol `-` at the beginning of each line with a video. To mark a video as *pending deletion* with the letter `x` or mark it using another character, you must edit the text file with a text editor and replace that character at the beginning of the line. You can reorder the lines or add titles and sections to the text file provided that the format of lines with videos is not changed.
+And the `update-videos.pl` program will write to that text file the names of the videos found in that directory, initially marked as *pending watch* with the symbol `-` at the beginning of each line followed by a space. To mark a video as *pending deletion* with the letter `x`, you must edit the text file with a text editor and replace that character at the beginning of the line. The names of those marked to be deleted are shown by the program if they are found in the directory. You can use any other character to mean other status like *already seen* when you already watched it but you don't want to remove it yet, for example. Also, you can reorder the lines in the text file and add titles and sections provided that the format of the lines with videos is not changed.
 
 In every run, the program will add at the end of the given text file the new videos found in each given directory and also it will report which files are pending deletion (videos marked with `x` and not deleted yet). You can preserve all deleted videos in the file to remember wich ones you watched before.
 
